@@ -46,6 +46,7 @@ public class HelloWorldController {
     
     private String excelResponse(String id) {
         String str = "Append here: ";
+        String data ="";
         File excelFile = new File("event.xlsx");
         boolean emp_present = false;
         //str += HelloWorldController.class.getResource("event.xlsx").getPath();
@@ -72,7 +73,7 @@ public class HelloWorldController {
         				cell.setCellType(Cell.CELL_TYPE_STRING);
         				//str += cell.toString()+" ";
         				if(id.trim().equals(cell.toString().trim())) {
-        					str += cell.getStringCellValue();
+        					data = row.getRowNum();
         					emp_present = true;
         					break;
         				}
@@ -90,12 +91,12 @@ public class HelloWorldController {
         if(emp_present) {
         	String msg = new JSONObject().put("employee_present", emp_present).toString();
         	list1.put("emp_exists", emp_present);
-        	list1.put("empdetail", str);
+        	list1.put("empdetail", data);
         	list1.put("statuscode", "200");
         	list1.put("statusmessage", "OK");
         } else {
         	list1.put("emp_exists", emp_present);
-        	list1.put("empdetail", str);
+        	list1.put("empdetail", data);
         	list1.put("statuscode", "201");
         	list1.put("statusmessage", "Failed to update");
         }
