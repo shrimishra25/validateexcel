@@ -80,7 +80,7 @@ public class HelloWorldController {
         					//data +=cell.toString();
         					emp_present = true;
         				}
-        				if(!emp_true) {
+        				if(!emp_present) {
         					break;
         				}
         			}
