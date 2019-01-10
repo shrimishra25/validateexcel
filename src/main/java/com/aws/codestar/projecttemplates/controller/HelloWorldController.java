@@ -110,6 +110,6 @@ public class HelloWorldController {
         //String msg = list1.toString();
         //sb.append(new JSONObject().put("employee_present", emp_present).toString());
        // String msg = new JSONObject().put("employee_present", emp_present).toString();
-        return sb;
+        return sb.toString();
     }
 }
