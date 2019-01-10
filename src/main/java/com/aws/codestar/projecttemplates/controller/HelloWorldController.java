@@ -107,9 +107,9 @@ public class HelloWorldController {
         	sb.append(new JSONObject().put("statuscode", "201").toString());
         	sb.append(new JSONObject().put("statusmessage", "Failed to update").toString());
         }
-        String msg = list1.toString();
-        sb.append(new JSONObject().put("employee_present", emp_present).toString());
+        //String msg = list1.toString();
+        //sb.append(new JSONObject().put("employee_present", emp_present).toString());
        // String msg = new JSONObject().put("employee_present", emp_present).toString();
-        return msg;
+        return sb;
     }
 }
