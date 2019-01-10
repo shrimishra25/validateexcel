@@ -49,6 +49,7 @@ public class HelloWorldController {
         String data ="";
         File excelFile = new File("event.xlsx");
         boolean emp_present = false;
+        Array arr[]=null;
         //str += HelloWorldController.class.getResource("event.xlsx").getPath();
         try {
         		ClassLoader classLoader = getClass().getClassLoader();
@@ -62,8 +63,10 @@ public class HelloWorldController {
         		System.out.println("Sheet : "+ sheet.getFirstRowNum());
         		// we iterate on rows
         		Iterator<Row> rowIt = sheet.iterator();
+        		//int cellSize = sheet.getRow(0).getLastCellNum();
+        		rowIt.next();
         		while(rowIt.hasNext() && !emp_present) {
-        			Row row = rowIt.next();     
+        			Row row = rowIt.next();  
         			// iterate on cells for the current row
         			Iterator<Cell> cellIterator = row.cellIterator();
         
@@ -75,9 +78,12 @@ public class HelloWorldController {
         				if(id.trim().equals(cell.toString().trim())) {
         					data +=cell.toString();
         					emp_present = true;
+        				}
+        				if(!emp_true) {
         					break;
         				}
         			}
+        			emp_present = false;
         		}   
         		workbook.close();
         		fis.close();      
