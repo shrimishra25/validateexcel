@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.net.URL;
 import java.lang.*;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -46,10 +47,9 @@ public class HelloWorldController {
     
     private String excelResponse(String id) {
         String str = "Append here: ";
-        String data ="";
+        ArrayList<String> data = new ArrayList<String>();
         File excelFile = new File("event.xlsx");
         boolean emp_present = false;
-        Array arr[]=null;
         //str += HelloWorldController.class.getResource("event.xlsx").getPath();
         try {
         		ClassLoader classLoader = getClass().getClassLoader();
@@ -75,8 +75,9 @@ public class HelloWorldController {
         				//change cell type to string as default it was taking as general
         				cell.setCellType(Cell.CELL_TYPE_STRING);
         				//str += cell.toString()+" ";
-        				if(id.trim().equals(cell.toString().trim())) {
-        					data +=cell.toString();
+        				if(id.trim().equals(cell.toString().trim()) || emp_present) {
+        					data.add(cell.toString());
+        					//data +=cell.toString();
         					emp_present = true;
         				}
         				if(!emp_true) {
