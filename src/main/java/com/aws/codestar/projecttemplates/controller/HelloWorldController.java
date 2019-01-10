@@ -73,9 +73,7 @@ public class HelloWorldController {
         				cell.setCellType(Cell.CELL_TYPE_STRING);
         				//str += cell.toString()+" ";
         				if(id.trim().equals(cell.toString().trim())) {
-        					while(cellIterator.hasNext()) {
-        						data = cell.toString();
-        					}
+        					data +=cell.toString();
         					emp_present = true;
         					break;
         				}
