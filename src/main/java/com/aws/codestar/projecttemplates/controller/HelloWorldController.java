@@ -94,20 +94,21 @@ public class HelloWorldController {
             str += "IO Exception caught";
         }
         //String val = str + " " + id + " " + emp_present;
-        JSONObject list1 = new JSONObject();
-        if(emp_present) {
-        	String msg = new JSONObject().put("employee_present", emp_present).toString();
-        	list1.put("emp_exists", emp_present);
-        	list1.put("empdetail", data);
-        	list1.put("statuscode", "200");
-        	list1.put("statusmessage", "OK");
+        StringBuilder sb = new StringBuilder();
+        if(!emp_present) {
+        	//String msg = new JSONObject().put("employee_present", emp_present).toString();
+        	sb.append(new JSONObject().put("empexists", emp_present).toString());
+        	sb.append(new JSONObject().put("empdetail", data).toString());
+        	sb.append(new JSONObject().put("statuscode", "200").toString());
+        	sb.append(new JSONObject().put("statusmessage", "OK").toString());
         } else {
-        	list1.put("emp_exists", emp_present);
-        	list1.put("empdetail", data);
-        	list1.put("statuscode", "201");
-        	list1.put("statusmessage", "Failed to update");
+        	sb.append(new JSONObject().put("empexists", emp_present).toString());
+        	sb.append(new JSONObject().put("empdetail", data).toString());
+        	sb.append(new JSONObject().put("statuscode", "201").toString());
+        	sb.append(new JSONObject().put("statusmessage", "Failed to update").toString());
         }
         String msg = list1.toString();
+        sb.append(new JSONObject().put("employee_present", emp_present).toString());
        // String msg = new JSONObject().put("employee_present", emp_present).toString();
         return msg;
     }
