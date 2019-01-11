@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import package com.aws.codestar.projecttemplates.Bean.TransactionResponse;
+import com.aws.codestar.projecttemplates.Bean.TransactionResponse;
 
 /**
  * Basic Spring web service controller that handles all GET requests.
@@ -52,8 +52,8 @@ public class HelloWorldController {
     
     private String excelResponse(String id) {
         String str = "Append here: ";
-        static ArrayList<String> data = new ArrayList<String>();
-    	static String dataString;
+        ArrayList<String> data = new ArrayList<String>();
+    	String dataString;
         File excelFile = new File("event.xlsx");
         boolean emp_present = false;
         //str += HelloWorldController.class.getResource("event.xlsx").getPath();
