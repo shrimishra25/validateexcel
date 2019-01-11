@@ -108,14 +108,11 @@ public class HelloWorldController {
 		}
 		
         StringBuilder sb = new StringBuilder();
-        if(!emp_present) {
-
-			  System.out.println(json); //String msg = new
-			  JSONObject().put("empexists", emp_present).toString(); sb.append(new
-			  JSONObject().put("empdetail", dataString).toString()); sb.append(new
-			  JSONObject().put("statuscode", "200").toString()); sb.append(new
-			  JSONObject().put("statusmessage", "OK").toString());
-			 
+        if(emp_present) {
+        	sb.append new JSONObject().put("empexists", emp_present).toString(); 
+        	sb.append(new JSONObject().put("empdetail", dataString).toString()); 
+        	sb.append(new JSONObject().put("statuscode", "200").toString());
+        	sb.append(new JSONObject().put("statusmessage", "OK").toString());
         } else {
         	sb.append(new JSONObject().put("empexists", emp_present).toString());
         	sb.append(new JSONObject().put("empdetail", dataString).toString());
