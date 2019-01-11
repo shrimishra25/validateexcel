@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import package com.aws.codestar.projecttemplates.Bean.TransactionResponse;
+
 /**
  * Basic Spring web service controller that handles all GET requests.
  */
@@ -47,7 +52,8 @@ public class HelloWorldController {
     
     private String excelResponse(String id) {
         String str = "Append here: ";
-        ArrayList<String> data = new ArrayList<String>();
+        static ArrayList<String> data = new ArrayList<String>();
+    	static String dataString;
         File excelFile = new File("event.xlsx");
         boolean emp_present = false;
         //str += HelloWorldController.class.getResource("event.xlsx").getPath();
@@ -80,12 +86,12 @@ public class HelloWorldController {
         					//data +=cell.toString();
         					emp_present = true;
         				}
-        				if(!emp_present) {
-        					break;
-        				}
         			}
-        			emp_present = false;
-        		}   
+        			if(!data.isEmpty()) {
+        				emp_present = true;
+        				break;
+        			}
+        		}  
         		workbook.close();
         		fis.close();      
         } catch (FileNotFoundException e) {
@@ -93,17 +99,26 @@ public class HelloWorldController {
         } catch (IOException e) {
             str += "IO Exception caught";
         }
-        //String val = str + " " + id + " " + emp_present;
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		if(emp_present) {
+			dataString = gson.toJson(new TransactionResponse(data.get(0), data.get(1),
+					data.get(2), data.get(3), data.get(4)));
+		} else {
+			dataString = gson.toJson(new TransactionResponse(null,null,null,null,null));
+		}
+		
         StringBuilder sb = new StringBuilder();
         if(!emp_present) {
-        	//String msg = new JSONObject().put("employee_present", emp_present).toString();
-        	sb.append(new JSONObject().put("empexists", emp_present).toString());
-        	sb.append(new JSONObject().put("empdetail", data).toString());
-        	sb.append(new JSONObject().put("statuscode", "200").toString());
-        	sb.append(new JSONObject().put("statusmessage", "OK").toString());
+
+			  System.out.println(json); //String msg = new
+			  JSONObject().put("empexists", emp_present).toString(); sb.append(new
+			  JSONObject().put("empdetail", dataString).toString()); sb.append(new
+			  JSONObject().put("statuscode", "200").toString()); sb.append(new
+			  JSONObject().put("statusmessage", "OK").toString());
+			 
         } else {
         	sb.append(new JSONObject().put("empexists", emp_present).toString());
-        	sb.append(new JSONObject().put("empdetail", data).toString());
+        	sb.append(new JSONObject().put("empdetail", dataString).toString());
         	sb.append(new JSONObject().put("statuscode", "201").toString());
         	sb.append(new JSONObject().put("statusmessage", "Failed to update").toString());
         }
